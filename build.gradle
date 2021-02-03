@@ -16,6 +16,7 @@ buildscript {
         appCompatVersion = "1.2.0"
         constraintLayoutVersion = "2.0.4"
         coroutinesVersion = "1.4.2"
+        easyPermissionsVersion = "3.0.0"
         fragmentVersion = "1.2.5"
         glideVersion = "4.10.0"
         gradleVersion = "4.1.2"

@@ -8,4 +8,6 @@
     <dimen name="item_restaurant_rating_text_start_margin">8dp</dimen>
     <dimen name="item_restaurant_padding">16dp</dimen>
     <dimen name="placeholder_text_size">16dp</dimen>
+    <dimen name="fab_margin_end">16dp</dimen>
+    <dimen name="fab_margin_bottom">16dp</dimen>
 </resources>
