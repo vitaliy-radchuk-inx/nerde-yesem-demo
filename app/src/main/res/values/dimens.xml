@@ -7,4 +7,5 @@
     <dimen name="item_restaurant_cuisines_text_size">14dp</dimen>
     <dimen name="item_restaurant_rating_text_start_margin">8dp</dimen>
     <dimen name="item_restaurant_padding">16dp</dimen>
+    <dimen name="placeholder_text_size">16dp</dimen>
 </resources>
