@@ -2,7 +2,7 @@ package com.demo.nerdeyesem.data.sources.local
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.demo.nerdeyesem.data.entities.RestaurantEntity
+import com.demo.nerdeyesem.data.entities.db.RestaurantEntity
 
 class RestaurantLocalDataSourceImpl : RestaurantLocalDataSource {
     private val restaurantsLiveData = MutableLiveData<List<RestaurantEntity>>()
