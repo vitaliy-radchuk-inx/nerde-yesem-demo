@@ -1,4 +1,4 @@
-package com.demo.nerdeyesem.ui.main
+package com.demo.nerdeyesem.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 

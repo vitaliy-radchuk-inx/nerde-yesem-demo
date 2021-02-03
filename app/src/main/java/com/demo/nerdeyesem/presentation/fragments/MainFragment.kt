@@ -1,4 +1,4 @@
-package com.demo.nerdeyesem.ui.main
+package com.demo.nerdeyesem.presentation.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.demo.nerdeyesem.R
+import com.demo.nerdeyesem.presentation.viewmodels.MainViewModel
 
 class MainFragment : Fragment() {
 

@@ -1,8 +1,9 @@
-package com.demo.nerdeyesem
+package com.demo.nerdeyesem.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.demo.nerdeyesem.ui.main.MainFragment
+import com.demo.nerdeyesem.R
+import com.demo.nerdeyesem.presentation.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
