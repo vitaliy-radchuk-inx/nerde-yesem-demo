@@ -2,6 +2,6 @@ package com.demo.nerdeyesem.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class RestaurantsViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
