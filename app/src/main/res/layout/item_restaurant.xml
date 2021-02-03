@@ -40,6 +40,7 @@
             android:isIndicator="true"
             android:progressTint="@android:color/holo_orange_light"
             android:rating="4.5"
+            android:secondaryProgressTint="@android:color/holo_orange_light"
             android:stepSize="0.1"
             app:layout_constraintBottom_toBottomOf="@id/ratingText"
             app:layout_constraintStart_toStartOf="@id/restaurantName"
