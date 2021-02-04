@@ -6,14 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.demo.nerdeyesem.Injector
 import com.demo.nerdeyesem.R
 import com.demo.nerdeyesem.presentation.adapters.RestaurantAdapter
 import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModel
+import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModelFactory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import pub.devrel.easypermissions.EasyPermissions
@@ -22,11 +26,15 @@ import pub.devrel.easypermissions.PermissionRequest
 
 class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
-    private val viewModel by viewModels<RestaurantsViewModel>()
+    private val viewModelFactory by lazy {
+        RestaurantsViewModelFactory(Injector.instance().restaurantOrchestrator())
+    }
+    private val viewModel by viewModels<RestaurantsViewModel> { viewModelFactory }
     private val adapter by lazy { RestaurantAdapter { id -> onRestaurantClick(id) } }
 
     private lateinit var restaurants: RecyclerView
     private lateinit var placeholder: TextView
+    private lateinit var progress: ProgressBar
     private lateinit var fab: ExtendedFloatingActionButton
 
     companion object {
@@ -53,6 +61,10 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         viewModel.showPlaceholder().observe(this.viewLifecycleOwner, { showPlaceholder ->
             placeholder.isVisible = showPlaceholder ?: false
         })
+
+        viewModel.showProgress().observe(this.viewLifecycleOwner, { showProgress ->
+            progress.isVisible = showProgress ?: false
+        })
     }
 
     override fun onRequestPermissionsResult(
@@ -69,13 +81,14 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        Snackbar.make(requireView(), "Permissions were denied!", Snackbar.LENGTH_SHORT).show()
+        showError(getString(R.string.error_permissions_denied))
     }
 
     private fun initView(view: View) {
         restaurants = view.findViewById(R.id.restaurants)
         restaurants.adapter = adapter
         placeholder = view.findViewById(R.id.placeholder)
+        progress = view.findViewById(R.id.progress)
         fab = view.findViewById(R.id.fab)
         fab.setOnClickListener { checkLocationPermissions() }
     }
@@ -105,5 +118,12 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 .setNegativeButtonText(R.string.dialog_cancel_button_title)
                 .build()
         )
+    }
+
+    private fun showError(message: String) {
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red))
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            .show()
     }
 }

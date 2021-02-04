@@ -2,20 +2,26 @@ package com.demo.nerdeyesem.presentation.viewmodels
 
 import android.content.Context
 import android.location.Location
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.demo.nerdeyesem.domain.orchestrators.RestaurantOrchestrator
+import com.demo.nerdeyesem.presentation.extensions.toModel
 import com.demo.nerdeyesem.presentation.models.RestaurantModel
 import com.demo.nerdeyesem.shared.LocationHelper
+import kotlinx.coroutines.*
 
-class RestaurantsViewModel() : ViewModel() {
+class RestaurantsViewModel(
+    private val restaurantOrchestrator: RestaurantOrchestrator
+) : ViewModel() {
 
     private val locationHelper by lazy {
         LocationHelper { location -> locationChanged(location) }
     }
-    private val restaurantsLiveData = MutableLiveData<List<RestaurantModel>>()
+    private val restaurantsLiveData =
+        Transformations.map(restaurantOrchestrator.getRestaurantsObservable()) { restaurants ->
+            restaurants.map { it.toModel() }
+        }
     private val showPlaceholderLiveData = MutableLiveData<Boolean>()
+    private val showProgressLiveData = MutableLiveData<Boolean>()
 
     override fun onCleared() {
         super.onCleared()
@@ -26,11 +32,27 @@ class RestaurantsViewModel() : ViewModel() {
 
     fun showPlaceholder(): LiveData<Boolean> = showPlaceholderLiveData
 
+    fun showProgress(): LiveData<Boolean> = showProgressLiveData
+
     fun requestLocation(context: Context) {
+        showProgressLiveData.value = true
         locationHelper.requestLocation(context)
     }
 
     private fun locationChanged(location: Location?) {
-        Log.w("LOG:::", "${location?.latitude}::${location?.longitude}")
+        if (location == null) {
+            //Show error
+            return
+        }
+        (viewModelScope + CoroutineExceptionHandler { _, _ ->
+            //Show error
+            showProgressLiveData.value = false
+        }).launch {
+            val isRestaurantsFound = withContext(Dispatchers.IO) {
+                restaurantOrchestrator.searchRestaurants(location.latitude, location.longitude)
+            }
+            showPlaceholderLiveData.value = !isRestaurantsFound
+            showProgressLiveData.value = false
+        }
     }
 }
