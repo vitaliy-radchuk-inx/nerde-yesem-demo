@@ -16,6 +16,6 @@ fun RestaurantResponse.toEntity(): RestaurantEntity {
         city = location.city,
         rating = userRating.aggregateRating,
         votes = userRating.votes,
-        highlights = highlights.joinToString(",")
+        highlights = highlights.joinToString(", ")
     )
 }

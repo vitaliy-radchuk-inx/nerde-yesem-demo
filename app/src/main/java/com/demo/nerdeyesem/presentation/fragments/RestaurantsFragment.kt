@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.demo.nerdeyesem.Injector
 import com.demo.nerdeyesem.R
 import com.demo.nerdeyesem.presentation.adapters.RestaurantAdapter
+import com.demo.nerdeyesem.presentation.extensions.hideKeyboard
 import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModel
 import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModelFactory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -65,14 +66,15 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 adapter.submitList(it)
             }
         })
-
         viewModel.showPlaceholder().observe(this.viewLifecycleOwner, { showPlaceholder ->
             restaurants.isVisible = !showPlaceholder
             placeholder.isVisible = showPlaceholder ?: false
         })
-
         viewModel.showProgress().observe(this.viewLifecycleOwner, { showProgress ->
             progress.isVisible = showProgress ?: false
+        })
+        viewModel.showError().observe(this.viewLifecycleOwner, { message ->
+            message?.let { showError(message) }
         })
     }
 
@@ -96,7 +98,8 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private fun initView(view: View) {
         city = view.findViewById(R.id.city)
         city.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_GO) {
+            hideKeyboard()
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.cityLocation(city.editableText.toString())
             }
             true
@@ -124,6 +127,7 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     @SuppressLint("MissingPermission")
     private fun requestLocation() {
+        city.text?.clear()
         viewModel.requestLocation(requireContext())
     }
 

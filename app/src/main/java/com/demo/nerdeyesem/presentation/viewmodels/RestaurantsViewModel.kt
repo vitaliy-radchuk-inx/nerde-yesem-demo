@@ -22,6 +22,7 @@ class RestaurantsViewModel(
         }
     private val showPlaceholderLiveData = MutableLiveData<Boolean>()
     private val showProgressLiveData = MutableLiveData<Boolean>()
+    private val errorMessageLiveData = MutableLiveData<String>()
 
     override fun onCleared() {
         super.onCleared()
@@ -34,25 +35,26 @@ class RestaurantsViewModel(
 
     fun showProgress(): LiveData<Boolean> = showProgressLiveData
 
+    fun showError(): LiveData<String> = errorMessageLiveData
+
     fun requestLocation(context: Context) {
         showProgressLiveData.value = true
         locationHelper.requestLocation(context)
     }
 
-    fun cityLocation(city: String){
+    fun cityLocation(city: String) {
         if (city.isEmpty()) {
-            //Show error
             return
         }
-        (viewModelScope + CoroutineExceptionHandler { _, _ ->
-            //Show error
+        showProgressLiveData.value = true
+        (viewModelScope + CoroutineExceptionHandler { _, throwable ->
+            notifyErrorMessage(throwable.message)
             showProgressLiveData.value = false
         }).launch {
             val isRestaurantsFound = withContext(Dispatchers.IO) {
                 restaurantOrchestrator.searchRestaurantsByCity(city)
             }
-            showPlaceholderLiveData.value = !isRestaurantsFound
-            showProgressLiveData.value = false
+            notifySearchFinished(isRestaurantsFound)
         }
     }
 
@@ -61,15 +63,27 @@ class RestaurantsViewModel(
             //Show error
             return
         }
-        (viewModelScope + CoroutineExceptionHandler { _, _ ->
-            //Show error
+        (viewModelScope + CoroutineExceptionHandler { _, throwable ->
+            notifyErrorMessage(throwable.message)
             showProgressLiveData.value = false
         }).launch {
             val isRestaurantsFound = withContext(Dispatchers.IO) {
                 restaurantOrchestrator.searchRestaurants(location.latitude, location.longitude)
             }
-            showPlaceholderLiveData.value = !isRestaurantsFound
-            showProgressLiveData.value = false
+            notifySearchFinished(isRestaurantsFound)
         }
+    }
+
+    private fun notifySearchFinished(isRestaurantsFound: Boolean) {
+        if (!isRestaurantsFound) {
+            notifyErrorMessage("Restaurants not found!")
+        }
+        showPlaceholderLiveData.value = !isRestaurantsFound
+        showProgressLiveData.value = false
+    }
+
+    private fun notifyErrorMessage(message: String?) {
+        errorMessageLiveData.value = message
+        errorMessageLiveData.value = null
     }
 }
