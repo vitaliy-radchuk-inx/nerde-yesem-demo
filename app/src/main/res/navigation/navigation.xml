@@ -13,8 +13,10 @@
         tools:layout="@layout/fragment_restaurants">
 
         <action
-            android:id="@+id/action_restaurants_screen_to_restaurant_details_screen"
-            app:destination="@id/restaurant_details_screen" />
+            android:id="@+id/action_restaurant_details"
+            app:destination="@id/restaurant_details_screen"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
 
     </fragment>
 
@@ -22,6 +24,12 @@
         android:id="@+id/restaurant_details_screen"
         android:name="com.demo.nerdeyesem.presentation.fragments.RestaurantDetailsFragment"
         android:label="@string/fragment_restaurant_details_title"
-        tools:layout="@layout/fragment_restaurants" />
+        tools:layout="@layout/fragment_restaurants">
+
+        <argument
+            android:name="restaurantId"
+            app:argType="string" />
+
+    </fragment>
 
 </navigation>

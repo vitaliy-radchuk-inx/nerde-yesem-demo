@@ -95,8 +95,8 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun onRestaurantClick(id: String) {
-        Navigation.findNavController(requireView())
-            .navigate(R.id.action_restaurants_screen_to_restaurant_details_screen)
+        val action = RestaurantsFragmentDirections.actionRestaurantDetails(id)
+        Navigation.findNavController(requireView()).navigate(action)
     }
 
     private fun checkLocationPermissions() {
