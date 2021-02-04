@@ -3,12 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
+    android:label="@string/app_name"
     app:startDestination="@id/restaurants_screen">
 
     <fragment
         android:id="@+id/restaurants_screen"
         android:name="com.demo.nerdeyesem.presentation.fragments.RestaurantsFragment"
-        android:label="fragment_events_screen_title"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_restaurants">
+
+        <action
+            android:id="@+id/action_restaurants_screen_to_restaurant_details_screen"
+            app:destination="@id/restaurant_details_screen" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/restaurant_details_screen"
+        android:name="com.demo.nerdeyesem.presentation.fragments.RestaurantDetailsFragment"
+        android:label="@string/fragment_restaurant_details_title"
         tools:layout="@layout/fragment_restaurants" />
 
 </navigation>

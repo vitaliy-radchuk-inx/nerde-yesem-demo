@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.nerdeyesem.Injector
 import com.demo.nerdeyesem.R
@@ -94,7 +95,8 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun onRestaurantClick(id: String) {
-        //TODO: Open details
+        Navigation.findNavController(requireView())
+            .navigate(R.id.action_restaurants_screen_to_restaurant_details_screen)
     }
 
     private fun checkLocationPermissions() {
