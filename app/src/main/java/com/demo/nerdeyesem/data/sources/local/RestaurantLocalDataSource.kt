@@ -8,4 +8,5 @@ interface RestaurantLocalDataSource {
     suspend fun createRestaurants(restaurants: List<RestaurantEntity>)
     fun getRestaurantsObservable(): LiveData<List<RestaurantEntity>>
     fun getRestaurantDetailsObservable(id: String): LiveData<RestaurantEntity?>
+    suspend fun deleteRestaurants()
 }

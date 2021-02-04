@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -21,6 +22,7 @@ import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModel
 import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModelFactory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 
@@ -33,6 +35,7 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private val viewModel by viewModels<RestaurantsViewModel> { viewModelFactory }
     private val adapter by lazy { RestaurantAdapter { id -> onRestaurantClick(id) } }
 
+    private lateinit var city: TextInputEditText
     private lateinit var restaurants: RecyclerView
     private lateinit var placeholder: TextView
     private lateinit var progress: ProgressBar
@@ -58,11 +61,13 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         viewModel.restaurants().observe(this.viewLifecycleOwner, { restaurants ->
             restaurants?.let {
                 placeholder.isVisible = it.isEmpty()
+                this.restaurants.isVisible = it.isNotEmpty()
                 adapter.submitList(it)
             }
         })
 
         viewModel.showPlaceholder().observe(this.viewLifecycleOwner, { showPlaceholder ->
+            restaurants.isVisible = !showPlaceholder
             placeholder.isVisible = showPlaceholder ?: false
         })
 
@@ -89,6 +94,13 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun initView(view: View) {
+        city = view.findViewById(R.id.city)
+        city.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                viewModel.cityLocation(city.editableText.toString())
+            }
+            true
+        }
         restaurants = view.findViewById(R.id.restaurants)
         restaurants.adapter = adapter
         placeholder = view.findViewById(R.id.placeholder)

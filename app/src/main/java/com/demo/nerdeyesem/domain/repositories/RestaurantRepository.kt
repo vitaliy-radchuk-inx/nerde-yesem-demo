@@ -14,6 +14,13 @@ interface RestaurantRepository {
         order: OrderType
     ): Boolean
 
+    suspend fun searchRestaurantsByCity(
+        city: String,
+        entityType: EntityType,
+        sort: SortType,
+        order: OrderType
+    ): Boolean
+
     fun getRestaurantsObservable(): LiveData<List<Restaurant>>
 
     fun getRestaurantDetailsObservable(id: String): LiveData<Restaurant?>

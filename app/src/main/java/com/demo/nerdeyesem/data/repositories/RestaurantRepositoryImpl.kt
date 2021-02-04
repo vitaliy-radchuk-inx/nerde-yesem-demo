@@ -37,8 +37,35 @@ class RestaurantRepositoryImpl(
                 false
             } else {
                 val restaurants = response.restaurantItems.map { it.restaurant.toEntity() }
+                restaurantLocalDataSource.deleteRestaurants()
                 restaurantLocalDataSource.createRestaurants(restaurants)
                 true
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    override suspend fun searchRestaurantsByCity(
+        city: String,
+        entityType: EntityType,
+        sort: SortType,
+        order: OrderType
+    ): Boolean {
+        return try {
+            val location = restaurantNetDataSource.cityLocation(city)
+            val suggestion = location.locationSuggestions.firstOrNull {
+                it.cityName.equals(city, ignoreCase = true)
+            }
+            if (suggestion == null) {
+                false
+            } else {
+                searchRestaurants(
+                    Pair(suggestion.lat.toDouble(), suggestion.lon.toDouble()),
+                    entityType,
+                    sort,
+                    order
+                )
             }
         } catch (e: Exception) {
             false

@@ -1,6 +1,7 @@
 package com.demo.nerdeyesem.data.api
 
 import com.demo.nerdeyesem.data.entities.requests.SearchRestaurantsRequest
+import com.demo.nerdeyesem.data.entities.responses.LocationSearchResponse
 import com.demo.nerdeyesem.data.entities.responses.SearchResponse
 import retrofit2.Retrofit
 import retrofit2.http.GET
@@ -17,6 +18,9 @@ class RestaurantNetApiImpl(private val retrofit: Retrofit) : RestaurantNetApi {
             @Query("sort") sort: String,
             @Query("order") order: String,
         ): SearchResponse
+
+        @GET("locations")
+        suspend fun location(@Query("query") query: String): LocationSearchResponse
     }
 
     private val restaurantApi by lazy { retrofit.create(Api::class.java) }
@@ -29,5 +33,9 @@ class RestaurantNetApiImpl(private val retrofit: Retrofit) : RestaurantNetApi {
             sort = request.sort,
             order = request.order
         )
+    }
+
+    override suspend fun location(query: String): LocationSearchResponse {
+        return restaurantApi.location(query)
     }
 }

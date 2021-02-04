@@ -19,4 +19,8 @@ class RestaurantLocalDataSourceImpl(
     override fun getRestaurantDetailsObservable(id: String): LiveData<RestaurantEntity?> {
         return restaurantDao.getRestaurantDetailsObservable(id)
     }
+
+    override suspend fun deleteRestaurants() {
+        restaurantDao.deleteRestaurants()
+    }
 }

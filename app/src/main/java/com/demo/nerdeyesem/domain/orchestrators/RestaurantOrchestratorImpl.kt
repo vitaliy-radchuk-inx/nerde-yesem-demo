@@ -19,6 +19,15 @@ class RestaurantOrchestratorImpl(
         )
     }
 
+    override suspend fun searchRestaurantsByCity(city: String): Boolean {
+        return restaurantRepository.searchRestaurantsByCity(
+            city = city,
+            entityType = EntityType.CITY,
+            sort = SortType.REAL_DISTANCE,
+            order = OrderType.ASC
+        )
+    }
+
     override fun getRestaurantsObservable(): LiveData<List<Restaurant>> {
         return restaurantRepository.getRestaurantsObservable()
     }

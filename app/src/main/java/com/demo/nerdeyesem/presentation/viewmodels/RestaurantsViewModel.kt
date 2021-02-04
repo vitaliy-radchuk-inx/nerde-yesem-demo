@@ -39,6 +39,23 @@ class RestaurantsViewModel(
         locationHelper.requestLocation(context)
     }
 
+    fun cityLocation(city: String){
+        if (city.isEmpty()) {
+            //Show error
+            return
+        }
+        (viewModelScope + CoroutineExceptionHandler { _, _ ->
+            //Show error
+            showProgressLiveData.value = false
+        }).launch {
+            val isRestaurantsFound = withContext(Dispatchers.IO) {
+                restaurantOrchestrator.searchRestaurantsByCity(city)
+            }
+            showPlaceholderLiveData.value = !isRestaurantsFound
+            showProgressLiveData.value = false
+        }
+    }
+
     private fun locationChanged(location: Location?) {
         if (location == null) {
             //Show error
