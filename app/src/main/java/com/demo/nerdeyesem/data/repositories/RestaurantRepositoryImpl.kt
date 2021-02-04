@@ -23,7 +23,7 @@ class RestaurantRepositoryImpl(
         entityType: EntityType,
         sort: SortType,
         order: OrderType
-    ) {
+    ): Boolean {
         val request = SearchRestaurantsRequest(
             location.first,
             location.second,
@@ -31,12 +31,17 @@ class RestaurantRepositoryImpl(
             sort.toString(),
             order.toString()
         )
-        try {
+        return try {
             val response = restaurantNetDataSource.searchRestaurants(request)
-            val restaurants = response.restaurantItems.map { it.restaurant.toEntity() }
-            restaurantLocalDataSource.createRestaurants(restaurants)
+            if (response.restaurantItems.isEmpty()) {
+                false
+            } else {
+                val restaurants = response.restaurantItems.map { it.restaurant.toEntity() }
+                restaurantLocalDataSource.createRestaurants(restaurants)
+                true
+            }
         } catch (e: Exception) {
-            //Notify error if needed
+            false
         }
     }
 

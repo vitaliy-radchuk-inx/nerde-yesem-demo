@@ -1,16 +1,16 @@
-package com.demo.nerdeyesem.data.extensions
+package com.demo.nerdeyesem.presentation.extensions
 
-import com.demo.nerdeyesem.data.entities.db.RestaurantEntity
 import com.demo.nerdeyesem.domain.entities.Restaurant
+import com.demo.nerdeyesem.presentation.models.RestaurantModel
 
-
-fun RestaurantEntity.toDomain(): Restaurant {
-    return Restaurant(
+fun Restaurant.toModel(): RestaurantModel {
+    return RestaurantModel(
         id = id,
         name = name,
         url = url,
         cuisines = cuisines,
         timings = timings,
+        phoneNumbers = phoneNumbers,
         address = address,
         locality = locality,
         city = city,
@@ -19,8 +19,7 @@ fun RestaurantEntity.toDomain(): Restaurant {
         lon = lon,
         zipCode = zipCode,
         localityVerbose = localityVerbose,
-        phoneNumbers = phoneNumbers,
-        aggregateRating = aggregateRating.toFloat(),
+        aggregateRating = aggregateRating,
         ratingText = ratingText,
         ratingColor = ratingColor,
         votes = votes,

@@ -12,7 +12,7 @@ interface RestaurantRepository {
         entityType: EntityType,
         sort: SortType,
         order: OrderType
-    )
+    ): Boolean
 
     fun getRestaurantsObservable(): LiveData<List<Restaurant>>
 }

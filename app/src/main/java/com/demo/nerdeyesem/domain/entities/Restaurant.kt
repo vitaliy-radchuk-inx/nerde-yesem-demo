@@ -15,7 +15,7 @@ data class Restaurant(
     val lon: Double,
     val zipCode: String,
     val localityVerbose: String,
-    val aggregateRating: Double,
+    val aggregateRating: Float,
     val ratingText: String,
     val ratingColor: String,
     val votes: Long
