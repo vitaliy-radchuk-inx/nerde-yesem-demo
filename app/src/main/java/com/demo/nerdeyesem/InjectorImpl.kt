@@ -10,6 +10,8 @@ import com.demo.nerdeyesem.data.sources.local.RestaurantLocalDataSource
 import com.demo.nerdeyesem.data.sources.local.RestaurantLocalDataSourceImpl
 import com.demo.nerdeyesem.data.sources.remote.RestaurantNetDataSource
 import com.demo.nerdeyesem.data.sources.remote.RestaurantNetDataSourceImpl
+import com.demo.nerdeyesem.domain.orchestrators.RestaurantDetailsOrchestrator
+import com.demo.nerdeyesem.domain.orchestrators.RestaurantDetailsOrchestratorImpl
 import com.demo.nerdeyesem.domain.orchestrators.RestaurantOrchestrator
 import com.demo.nerdeyesem.domain.orchestrators.RestaurantOrchestratorImpl
 import okhttp3.OkHttpClient
@@ -30,7 +32,7 @@ class InjectorImpl(context: Context) : Injector {
         AppDatabase.getInstance(context)
     }
     private val restaurantLocalDataSource: RestaurantLocalDataSource by lazy {
-        RestaurantLocalDataSourceImpl()
+        RestaurantLocalDataSourceImpl(database.restaurantDao())
     }
     private val restaurantNetApi: RestaurantNetApi by lazy {
         RestaurantNetApiImpl(retrofit)
@@ -49,6 +51,10 @@ class InjectorImpl(context: Context) : Injector {
 
     override fun restaurantOrchestrator(): RestaurantOrchestrator {
         return RestaurantOrchestratorImpl(restaurantRepository)
+    }
+
+    override fun restaurantsDetailsOrchestrator(): RestaurantDetailsOrchestrator {
+        return RestaurantDetailsOrchestratorImpl(restaurantRepository)
     }
 
     private fun initApiClient(): OkHttpClient {

@@ -50,4 +50,10 @@ class RestaurantRepositoryImpl(
             entities.map { it.toDomain() }
         }
     }
+
+    override fun getRestaurantDetailsObservable(id: String): LiveData<Restaurant?> {
+        return Transformations.map(restaurantLocalDataSource.getRestaurantDetailsObservable(id)) { entity ->
+            entity?.toDomain()
+        }
+    }
 }

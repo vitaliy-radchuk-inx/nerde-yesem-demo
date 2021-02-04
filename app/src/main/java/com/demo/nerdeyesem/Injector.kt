@@ -1,12 +1,15 @@
 package com.demo.nerdeyesem
 
 import android.content.Context
+import com.demo.nerdeyesem.domain.orchestrators.RestaurantDetailsOrchestrator
 import com.demo.nerdeyesem.domain.orchestrators.RestaurantOrchestrator
 
 
 interface Injector {
 
     fun restaurantOrchestrator(): RestaurantOrchestrator
+
+    fun restaurantsDetailsOrchestrator(): RestaurantDetailsOrchestrator
 
     companion object {
 

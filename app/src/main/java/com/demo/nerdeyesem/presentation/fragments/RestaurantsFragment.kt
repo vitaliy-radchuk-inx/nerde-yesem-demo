@@ -56,7 +56,10 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.restaurants().observe(this.viewLifecycleOwner, { restaurants ->
-            restaurants?.let { adapter.submitList(it) }
+            restaurants?.let {
+                placeholder.isVisible = it.isEmpty()
+                adapter.submitList(it)
+            }
         })
 
         viewModel.showPlaceholder().observe(this.viewLifecycleOwner, { showPlaceholder ->

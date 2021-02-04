@@ -13,6 +13,9 @@ interface RestaurantDao {
     @Query("SELECT * FROM restaurants")
     fun getRestaurantsObservable(): LiveData<List<RestaurantEntity>>
 
+    @Query("SELECT * FROM restaurants WHERE id = :id")
+    fun getRestaurantDetailsObservable(id: String): LiveData<RestaurantEntity?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createRestaurants(restaurants: List<RestaurantEntity>)
 

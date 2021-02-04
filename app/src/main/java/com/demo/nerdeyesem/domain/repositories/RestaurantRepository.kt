@@ -15,4 +15,6 @@ interface RestaurantRepository {
     ): Boolean
 
     fun getRestaurantsObservable(): LiveData<List<Restaurant>>
+
+    fun getRestaurantDetailsObservable(id: String): LiveData<Restaurant?>
 }
