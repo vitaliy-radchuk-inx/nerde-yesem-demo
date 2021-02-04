@@ -34,13 +34,25 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cityContainer"
+            tools:visibility="visible" />
+
         <Space
             android:id="@+id/space"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/item_restaurants_top_space_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cityContainer" />
+            app:layout_constraintTop_toBottomOf="@id/progress" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/restaurants"
@@ -70,7 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cityContainer"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpUsage"
             tools:visibility="visible" />
 
