@@ -3,7 +3,7 @@ buildscript {
 
     ext {
         // Sdk and tools
-        applicationId = "com.getsocialdemo"
+        applicationId = "com.demo.nerdeyesem"
         versionCode = 1
         versionName = "1.0.0"
 
