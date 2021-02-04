@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="padding_default">16dp</dimen>
     <dimen name="item_restaurants_screen_padding">16dp</dimen>
     <dimen name="item_restaurants_top_space_height">8dp</dimen>
-    <dimen name="item_restaurant_name_text_size">16dp</dimen>
-    <dimen name="item_restaurant_rating_text_size">14dp</dimen>
-    <dimen name="item_restaurant_cuisines_text_size">14dp</dimen>
     <dimen name="item_restaurant_rating_text_start_margin">8dp</dimen>
-    <dimen name="item_restaurant_padding">16dp</dimen>
     <dimen name="placeholder_text_size">16dp</dimen>
-    <dimen name="fab_margin_end">16dp</dimen>
-    <dimen name="fab_margin_bottom">16dp</dimen>
 </resources>

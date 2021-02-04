@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Nerde Yesem</string>
+    <string name="fragment_restaurant_details_title">Details</string>
     <string name="hint_city_edit_text">City</string>
     <string name="restaurant_rating_text">%1$.1f (%2$d)</string>
     <string name="placeholder_start_looking_for_restaurants_nearby_text">Start looking for the best restaurants nearby!</string>
@@ -9,4 +10,8 @@
     <string name="dialog_ok_button_title">Ok</string>
     <string name="fab_current_location_title">Current location</string>
     <string name="error_permissions_denied">Permissions were denied!</string>
+    <string name="fragment_restaurants_details_contacts_title">Contacts</string>
+    <string name="fragment_details_overview_title">Overview</string>
+    <string name="fragment_restaurants_details_highlights_title">Highlights</string>
+    <string name="fragment_restaurants_details_cuisines_title">Cuisines</string>
 </resources>
