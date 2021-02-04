@@ -26,8 +26,8 @@ class RestaurantViewHolder(
     fun bind(restaurant: RestaurantModel) {
         currentItem = restaurant
         restaurantName.text = restaurant.name
-        rating.rating = restaurant.aggregateRating
-        ratingText.text = formatRating(restaurant.aggregateRating, restaurant.votes)
+        rating.rating = restaurant.rating
+        ratingText.text = formatRating(restaurant.rating, restaurant.votes)
         cuisines.text = restaurant.cuisines
     }
 

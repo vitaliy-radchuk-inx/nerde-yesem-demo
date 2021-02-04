@@ -12,17 +12,10 @@ fun RestaurantEntity.toDomain(): Restaurant {
         cuisines = cuisines,
         timings = timings,
         address = address,
-        locality = locality,
         city = city,
-        cityId = cityId,
-        lat = lat,
-        lon = lon,
-        zipCode = zipCode,
-        localityVerbose = localityVerbose,
-        phoneNumbers = phoneNumbers,
-        aggregateRating = aggregateRating.toFloat(),
-        ratingText = ratingText,
-        ratingColor = ratingColor,
+        phones = phones,
+        rating = rating,
         votes = votes,
+        highlights = highlights
     )
 }

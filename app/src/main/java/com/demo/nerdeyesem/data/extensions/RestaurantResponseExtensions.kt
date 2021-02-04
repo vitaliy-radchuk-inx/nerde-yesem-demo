@@ -11,18 +11,11 @@ fun RestaurantResponse.toEntity(): RestaurantEntity {
         url = url,
         cuisines = cuisines,
         timings = timings,
-        phoneNumbers = phoneNumbers,
+        phones = phoneNumbers,
         address = location.address,
-        locality = location.locality,
         city = location.city,
-        cityId = location.cityId,
-        lat = location.lat,
-        lon = location.lon,
-        zipCode = location.zipCode,
-        localityVerbose = location.localityVerbose,
-        aggregateRating = userRating.aggregateRating,
-        ratingText = userRating.ratingText,
-        ratingColor = userRating.ratingColor,
-        votes = userRating.votes
+        rating = userRating.aggregateRating,
+        votes = userRating.votes,
+        highlights = highlights.joinToString(",")
     )
 }

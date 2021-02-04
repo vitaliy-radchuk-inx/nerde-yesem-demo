@@ -10,18 +10,11 @@ fun Restaurant.toModel(): RestaurantModel {
         url = url,
         cuisines = cuisines,
         timings = timings,
-        phoneNumbers = phoneNumbers,
+        phones = phones,
         address = address,
-        locality = locality,
         city = city,
-        cityId = cityId,
-        lat = lat,
-        lon = lon,
-        zipCode = zipCode,
-        localityVerbose = localityVerbose,
-        aggregateRating = aggregateRating,
-        ratingText = ratingText,
-        ratingColor = ratingColor,
+        rating = rating,
         votes = votes,
+        highlights = highlights
     )
 }
