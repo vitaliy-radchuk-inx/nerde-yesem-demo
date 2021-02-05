@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,16 +18,21 @@ import com.demo.nerdeyesem.Injector
 import com.demo.nerdeyesem.R
 import com.demo.nerdeyesem.presentation.adapters.RestaurantAdapter
 import com.demo.nerdeyesem.presentation.extensions.hideKeyboard
+import com.demo.nerdeyesem.presentation.extensions.showError
 import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModel
 import com.demo.nerdeyesem.presentation.viewmodels.RestaurantsViewModelFactory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 
 
 class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
+
+    companion object {
+        internal const val RC_LOCATION_PERMISSION = 10001
+    }
+
     private val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
     private val viewModelFactory by lazy {
         RestaurantsViewModelFactory(Injector.instance().restaurantOrchestrator())
@@ -41,10 +45,6 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private lateinit var placeholder: TextView
     private lateinit var progress: ProgressBar
     private lateinit var fab: ExtendedFloatingActionButton
-
-    companion object {
-        internal const val RC_LOCATION_PERMISSION = 10001
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,7 +74,7 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             progress.isVisible = showProgress ?: false
         })
         viewModel.showError().observe(this.viewLifecycleOwner, { message ->
-            message?.let { showError(message) }
+            message?.let { requireView().showError(message) }
         })
     }
 
@@ -92,7 +92,7 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        showError(getString(R.string.error_permissions_denied))
+        requireView().showError(getString(R.string.error_permissions_denied))
     }
 
     private fun initView(view: View) {
@@ -113,7 +113,7 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun onRestaurantClick(id: String) {
-        val action = RestaurantsFragmentDirections.actionRestaurantDetails(id)
+        val action = RestaurantsFragmentDirections.actionRestaurantsToRestaurantDetails(id)
         Navigation.findNavController(requireView()).navigate(action)
     }
 
@@ -139,12 +139,5 @@ class RestaurantsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 .setNegativeButtonText(R.string.dialog_cancel_button_title)
                 .build()
         )
-    }
-
-    private fun showError(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red))
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            .show()
     }
 }

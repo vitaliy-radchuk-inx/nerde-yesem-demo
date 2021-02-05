@@ -14,7 +14,16 @@
     <string name="fragment_details_overview_title">Overview</string>
     <string name="fragment_restaurants_details_highlights_title">Highlights</string>
     <string name="fragment_restaurants_details_cuisines_title">Cuisines</string>
+    <string name="fragment_login_title">Login</string>
     <string name="fragment_login_user_name_hint">User name</string>
     <string name="fragment_login_password_hint">Password</string>
     <string name="fragment_login_login_button_title">Login</string>
+    <string name="error_biometric_features_unavailable">Biometric features are currently unavailable</string>
+    <string name="error_no_biometric_features_available">No biometric features available on this device</string>
+    <string name="error_biometric_features_not_set">Biometric features are not set</string>
+    <string name="error_auth_failed">Authentication failed</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="fragment_biometric_verify_your_identity">Verify your identity</string>
+    <string name="fragment_biometric_scan_your_fingerprint">Scan your fingerprint</string>
+    <string name="fragment_biometric_use_password">Use password</string>
 </resources>
