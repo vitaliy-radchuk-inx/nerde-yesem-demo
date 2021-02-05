@@ -26,4 +26,6 @@
     <string name="fragment_biometric_verify_your_identity">Verify your identity</string>
     <string name="fragment_biometric_scan_your_fingerprint">Scan your fingerprint</string>
     <string name="fragment_biometric_use_password">Use password</string>
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_invalid_password">Invalid password</string>
 </resources>
