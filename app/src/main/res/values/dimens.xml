@@ -5,4 +5,6 @@
     <dimen name="item_restaurants_top_space_height">8dp</dimen>
     <dimen name="item_restaurant_rating_text_start_margin">8dp</dimen>
     <dimen name="placeholder_text_size">16dp</dimen>
+    <dimen name="fragment_login_button_height">60dp</dimen>
+    <dimen name="fragment_login_button_width">60dp</dimen>
 </resources>

@@ -14,4 +14,7 @@
     <string name="fragment_details_overview_title">Overview</string>
     <string name="fragment_restaurants_details_highlights_title">Highlights</string>
     <string name="fragment_restaurants_details_cuisines_title">Cuisines</string>
+    <string name="fragment_login_user_name_hint">User name</string>
+    <string name="fragment_login_password_hint">Password</string>
+    <string name="fragment_login_login_button_title">Login</string>
 </resources>
